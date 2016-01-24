@@ -1,14 +1,16 @@
 ##To Do List
 
 ###Description
-Simple to do list with unit testing using Microsoft SQL Server, Nancy 1.3.0, XUnit 2.1.0.
+Simple to do list with tasks and categories. With unit testing using Microsoft SQL Server, Nancy 1.3.0, XUnit 2.1.0.
 
 ###Instructions
 Download source code and run from the project folder
 
-  `> dnvm install latest`
-  `> dnu restore`
-  `> dnx kestrel`
+```
+> dnvm install latest
+> dnu restore
+> dnx kestrel
+```
 
 App production database named `todo` created using these commands in PowerShell **SQLCMD**
 

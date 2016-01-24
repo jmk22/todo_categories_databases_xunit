@@ -13,21 +13,21 @@ namespace ToDoList
               return View["index.cshtml"];
             };
             Get["/tasks"] = _ => {
-              List<Task> AllTasks = Task.All();
+              List<Task> AllTasks = Task.GetAll();
               return View["tasks.cshtml", AllTasks];
             };
             Get["/tasks/new"] = _ => {
               return View["tasks_form.cshtml"];
             };
             Post["/tasks/new"] = _ => {
-              Task newTask = new Task(Request.Form["task-description"]);
+              Task newTask = new Task(Request.Form["task-description"], 1);
               newTask.Save();
               return View["success.cshtml"];
             };
-            // Post["/tasks/delete"] = _ => {
-            //   Task.DeleteAll();
-            //   return View["cleared.cshtml"];
-            // };
+            Post["/tasks/delete"] = _ => {
+              Task.DeleteAll();
+              return View["cleared.cshtml"];
+            };
         }
     }
 }
