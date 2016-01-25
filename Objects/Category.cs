@@ -218,7 +218,7 @@ namespace ToDoList
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("DELETE FROM categories WHERE id = @CategoryId;", conn);
+      SqlCommand cmd = new SqlCommand("DELETE FROM categories WHERE id = @CategoryId;DELETE FROM tasks WHERE categoryId = @CategoryId;", conn);
 
       SqlParameter categoryIdParameter = new SqlParameter();
       categoryIdParameter.ParameterName = "@CategoryId";

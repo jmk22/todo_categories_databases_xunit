@@ -12,7 +12,7 @@ namespace ToDoList
     {
       DBConfiguration.connectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=todo_test;Integrated Security=SSPI;";
     }
-    
+
     [Fact]
     public void Test_CategoriesEmptyAtFirst()
     {
@@ -128,15 +128,24 @@ namespace ToDoList
       Category testCategory2 = new Category(name2);
       testCategory2.Save();
 
+      Task task1 = new Task("Mow the lawn", testCategory1.GetId());
+      task1.Save();
+      Task task2 = new Task("Send emails", testCategory2.GetId());
+      task2.Save();
+
       //Act
       testCategory1.Delete();
-      List<Category> result = Category.GetAll();
+      List<Category> resultCategories = Category.GetAll();
+      List<Category> testCategoryList = new List<Category> {testCategory2};
 
-      List<Category> testList = new List<Category> {testCategory2};
+      List<Task> resultTasks = Task.GetAll();
+      List<Task> testTaskList = new List<Task> {task2};
 
       //Assert
-      Assert.Equal(testList, result);
+      Assert.Equal(testCategoryList, resultCategories);
+      Assert.Equal(testTaskList, resultTasks);
     }
+
 
     public void Dispose()
     {
