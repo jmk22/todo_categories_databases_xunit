@@ -103,6 +103,10 @@ namespace ToDoList
       conn.Open();
       SqlCommand cmd = new SqlCommand("DELETE FROM categories;", conn);
       cmd.ExecuteNonQuery();
+      if(conn != null)
+      {
+        conn.Close();
+      }
     }
 
     public static Category Find(int id)
@@ -150,6 +154,7 @@ namespace ToDoList
       categoryIdParameter.ParameterName = "@CategoryId";
       categoryIdParameter.Value = this.GetId();
       cmd.Parameters.Add(categoryIdParameter);
+
       rdr = cmd.ExecuteReader();
 
       List<Task> tasks = new List<Task> {};
@@ -170,6 +175,52 @@ namespace ToDoList
         conn.Close();
       }
       return tasks;
+    }
+
+    // public void Update(string newName)
+    // {
+    //   SqlConnection conn = DB.Connection();
+    //   conn.Open();
+    //
+    //   SqlCommand cmd = new SqlCommand("UPDATE categories SET name = '@NewName' WHERE id = @CategoryId;", conn);
+    //
+    //   SqlParameter newNameParameter = new SqlParameter();
+    //   newNameParameter.ParameterName = "@NewName";
+    //   newNameParameter.Value = newName;
+    //   cmd.Parameters.Add(newNameParameter);
+    //
+    //   SqlParameter categoryIdParameter = new SqlParameter();
+    //   categoryIdParameter.ParameterName = "@CategoryId";
+    //   categoryIdParameter.Value = this.GetId();
+    //
+    //   cmd.Parameters.Add(categoryIdParameter);
+    //
+    //   cmd.ExecuteNonQuery();
+    //
+    //   if (conn != null)
+    //   {
+    //     conn.Close();
+    //   }
+    // }
+
+    public void Delete()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM categories WHERE id = @CategoryId;", conn);
+
+      SqlParameter categoryIdParameter = new SqlParameter();
+      categoryIdParameter.ParameterName = "@CategoryId";
+      categoryIdParameter.Value = this.GetId();
+
+      cmd.Parameters.Add(categoryIdParameter);
+      cmd.ExecuteNonQuery();
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
     }
   }
 }
