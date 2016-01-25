@@ -48,7 +48,7 @@ namespace ToDoList
       SqlDataReader rdr = null;
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM categories", conn);
+      SqlCommand cmd = new SqlCommand("SELECT * FROM categories;", conn);
       rdr = cmd.ExecuteReader();
 
       while(rdr.Read())
@@ -75,7 +75,7 @@ namespace ToDoList
       SqlDataReader rdr;
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("INSERT INTO categories (name) OUTPUT INSERTED.id VALUES (@CategoryName)", conn);
+      SqlCommand cmd = new SqlCommand("INSERT INTO categories (name) OUTPUT INSERTED.id VALUES (@CategoryName);", conn);
 
       SqlParameter param = new SqlParameter();
       param.ParameterName = "@CategoryName";
@@ -101,7 +101,7 @@ namespace ToDoList
     {
       SqlConnection conn = DB.Connection();
       conn.Open();
-      SqlCommand cmd = new SqlCommand("DELETE FROM categories;", conn);
+      SqlCommand cmd = new SqlCommand("DELETE FROM categories; DELETE FROM tasks;", conn);
       cmd.ExecuteNonQuery();
       if(conn != null)
       {
@@ -115,7 +115,7 @@ namespace ToDoList
       SqlDataReader rdr = null;
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM categories WHERE id = @CategoryId", conn);
+      SqlCommand cmd = new SqlCommand("SELECT * FROM categories WHERE id = @CategoryId;", conn);
       SqlParameter categoryIdParameter = new SqlParameter();
       categoryIdParameter.ParameterName = "@CategoryId";
       categoryIdParameter.Value = id.ToString();
@@ -149,7 +149,7 @@ namespace ToDoList
       SqlDataReader rdr = null;
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT * FROM tasks WHERE categoryId = @CategoryId", conn);
+      SqlCommand cmd = new SqlCommand("SELECT * FROM tasks WHERE categoryId = @CategoryId;", conn);
       SqlParameter categoryIdParameter = new SqlParameter();
       categoryIdParameter.ParameterName = "@CategoryId";
       categoryIdParameter.Value = this.GetId();
@@ -183,7 +183,7 @@ namespace ToDoList
       SqlDataReader rdr = null;
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("UPDATE categories SET name = @NewName OUTPUT INSERTED.name WHERE id = @CategoryId", conn);
+      SqlCommand cmd = new SqlCommand("UPDATE categories SET name = @NewName OUTPUT INSERTED.name WHERE id = @CategoryId;", conn);
 
       SqlParameter newNameParameter = new SqlParameter();
       newNameParameter.ParameterName = "@NewName";
@@ -218,7 +218,7 @@ namespace ToDoList
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("DELETE FROM categories WHERE id = @CategoryId;DELETE FROM tasks WHERE categoryId = @CategoryId;", conn);
+      SqlCommand cmd = new SqlCommand("DELETE FROM categories WHERE id = @CategoryId; DELETE FROM tasks WHERE categoryId = @CategoryId;", conn);
 
       SqlParameter categoryIdParameter = new SqlParameter();
       categoryIdParameter.ParameterName = "@CategoryId";

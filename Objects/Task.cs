@@ -160,7 +160,5 @@ namespace ToDoList
       }
       return foundTask;
     }
-
-
   }
 }
