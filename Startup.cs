@@ -1,50 +1,51 @@
+using System.Collections.Generic;
+using System.IO;
+using System.Data;
+using System.Data.SqlClient;
+
+using Microsoft.AspNet.Builder;
+
+using Nancy;
+using Nancy.Owin;
+using Nancy.ViewEngines.Razor;
+
 namespace ToDoList
 {
-    using Microsoft.AspNet.Builder;
-    using Nancy.Owin;
-    using Nancy;
-    using System.IO;
-    using System.Collections.Generic;
-    using Nancy.ViewEngines.Razor;
-    using System.Data;
-    using System.Data.SqlClient;
-
-    public class Startup
+  public class Startup
+  {
+    public void Configure(IApplicationBuilder app)
     {
-        public void Configure(IApplicationBuilder app)
-        {
-
-            app.UseOwin(x => x.UseNancy());
-        }
+      app.UseOwin(x => x.UseNancy());
     }
-    public class CustomRootPathProvider : IRootPathProvider
+  }
+  public class CustomRootPathProvider : IRootPathProvider
+  {
+    public string GetRootPath()
     {
-        public string GetRootPath()
-        {
-            return Directory.GetCurrentDirectory();
-        }
+      return Directory.GetCurrentDirectory();
+    }
+  }
+
+  public class RazorConfig : IRazorConfiguration
+  {
+    public IEnumerable<string> GetAssemblyNames()
+    {
+      return null;
     }
 
-    public class RazorConfig : IRazorConfiguration
+    public IEnumerable<string> GetDefaultNamespaces()
     {
-        public IEnumerable<string> GetAssemblyNames()
-        {
-            return null;
-        }
-
-        public IEnumerable<string> GetDefaultNamespaces()
-        {
-            return null;
-        }
-
-        public bool AutoIncludeModelNamespace
-        {
-            get { return false; }
-        }
+      return null;
     }
 
-    public static class DBConfiguration
+    public bool AutoIncludeModelNamespace
     {
-        public static string connectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=todo;Integrated Security=SSPI;";
+      get { return false; }
     }
+  }
+
+  public static class DBConfiguration
+  {
+    public static string connectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=todo;Integrated Security=SSPI;";
+  }
 }

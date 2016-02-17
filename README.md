@@ -17,7 +17,7 @@ App production database named `todo` created using these commands in PowerShell 
 ```
 1> CREATE DATABASE todo;
 2> GO
-1> USE to_do;
+1> USE todo;
 2> GO
 1> CREATE TABLE tasks
 2> (
