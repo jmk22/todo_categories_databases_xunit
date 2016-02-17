@@ -1,8 +1,8 @@
+using System.Data;
+using System.Data.SqlClient;
+
 namespace ToDoList
 {
-  using System.Data;
-  using System.Data.SqlClient;
-  
   public class DB
   {
     public static SqlConnection Connection()
